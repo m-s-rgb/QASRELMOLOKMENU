@@ -1,944 +1,170 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مطعم قصر الملوك - طعم ملكي بمذاق مختلف</title>
-    <meta name="description" content="منيو مطعم قصر الملوك - أشهى البيتزا الإيطالية، الكريبات، السماش برجر، الفرايد تشكين، الباستا والعروض الملكية.">
-
+    <title>منيو مطعم قصر الملوك - طعم ملكي بمذاق مختلف</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- FontAwesome 6 CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Google Fonts - Cairo -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        royal: {
-                            dark: '#1a0b05',
-                            card: '#281309',
-                            gold: '#FFD700',
-                            goldHover: '#E6C200',
-                            goldDark: '#B8860B',
-                            accent: '#D4AF37',
-                            brown: '#3D1C06',
-                            cream: '#FAF5EB'
-                        }
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         body {
             font-family: 'Cairo', sans-serif;
-            background: radial-gradient(circle at top, #2d1408 0%, #120602 100%);
-            color: #FAF5EB;
+            background: linear-gradient(135deg, #FFF8E7 0%, #FDF3D0 100%);
+            color: #2C1810;
             min-height: 100vh;
         }
-
-        /* Gold metallic gradient text */
-        .text-gold-gradient {
-            background: linear-gradient(135deg, #FFF1B0 0%, #FFD700 50%, #C59B27 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .royal-header {
+            background: linear-gradient(135deg, #2C1810 0%, #4A2818 100%);
+            border-bottom: 4px solid #FFD700;
         }
-
-        /* Gold metallic gradient background */
-        .bg-gold-gradient {
-            background: linear-gradient(135deg, #FFE885 0%, #FFD700 50%, #C59B27 100%);
+        .royal-gold { color: #FFD700; }
+        .royal-gold-bg { background-color: #FFD700; }
+        .royal-gold-bg:hover { background-color: #FACC15; }
+        .menu-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgba(44, 24, 16, 0.1), 0 8px 10px -6px rgba(44, 24, 16, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .bg-gold-gradient:hover {
-            background: linear-gradient(135deg, #FFF1B0 0%, #FFE033 50%, #D4AF37 100%);
+        .menu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 35px -5px rgba(44, 24, 16, 0.15);
         }
-
-        .gold-border {
-            border-color: rgba(255, 215, 0, 0.3);
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.6); }
+            50% { box-shadow: 0 0 0 12px rgba(255, 215, 0, 0); }
         }
-
-        .gold-glow {
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
-        }
-
-        .gold-glow-hover:hover {
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.35);
-        }
-
-        .card-glass {
-            background: rgba(40, 19, 9, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 215, 0, 0.25);
-        }
-
-        .card-glass-light {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 215, 0, 0.15);
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); transform: scale(1); }
-            50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); transform: scale(1.02); }
-        }
-
         .call-pulse {
-            animation: pulseGlow 2.5s infinite;
-        }
-
-        /* Modal Image Zoom Container */
-        .img-zoom-viewport {
-            overflow: hidden;
-            cursor: grab;
-            user-select: none;
-            touch-action: none;
-        }
-        .img-zoom-viewport:active {
-            cursor: grabbing;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #120602;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #B8860B;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #FFD700;
+            animation: pulse-gold 2s infinite;
         }
     </style>
 </head>
-<body class="flex flex-col justify-between min-h-screen pb-20 sm:pb-0">
+<body class="flex flex-col justify-between">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-gradient-to-r from-amber-950 via-amber-800 to-amber-950 text-amber-200 text-xs py-2 px-4 text-center border-b border-amber-500/30 font-medium flex items-center justify-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
-        <span>مفتوح الآن لاستقبال طلباتكم | خدمة التوصيل السريع متاحة طوال اليوم 🛵</span>
-    </div>
-
-    <!-- Main Header -->
-    <header class="bg-royal-dark/95 backdrop-blur-md border-b-2 border-amber-500/40 sticky top-0 z-40 shadow-2xl">
-        <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-
-            <!-- Brand Logo & Title -->
-            <div class="flex items-center gap-3 text-right">
-                <div class="w-14 h-14 rounded-2xl bg-gold-gradient flex items-center justify-center text-3xl shadow-lg border-2 border-amber-200 text-amber-950 transform hover:rotate-6 transition duration-300">
-                    <i class="fa-solid fa-crown"></i>
+    <!-- Header -->
+    <header class="royal-header text-white shadow-xl sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-right gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full royal-gold-bg flex items-center justify-center text-2xl shadow-lg">
+                    👑
                 </div>
                 <div>
-                    <div class="flex items-center gap-2">
-                        <h1 class="text-2xl sm:text-3xl font-black text-gold-gradient tracking-wide">مطعم قصر الملوك</h1>
-                        <span class="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/30">ملكي 👑</span>
-                    </div>
-                    <p class="text-xs sm:text-sm text-amber-200/90 font-semibold flex items-center gap-1.5 mt-0.5">
-                        <i class="fa-solid fa-utensils text-amber-400 text-xs"></i>
-                        <span>طعم ملكي بمذاق مختلف</span>
-                    </p>
+                    <h1 class="text-2xl font-black royal-gold tracking-wide">مطعم قصر الملوك</h1>
+                    <p class="text-xs text-amber-200 font-semibold tracking-wider">طعم ملكي بمذاق مختلف</p>
                 </div>
             </div>
-
-            <!-- Location & Contact Quick Header -->
-            <div class="flex flex-wrap items-center justify-center sm:justify-end gap-3 w-full md:w-auto">
-                <div class="card-glass-light px-3 py-1.5 rounded-xl border gold-border flex items-center gap-2 text-xs text-amber-100 font-medium">
-                    <i class="fa-solid fa-location-dot text-amber-400"></i>
-                    <span>ميدان الزلابية بجوار ستوديو شمس</span>
-                </div>
-                <div class="hidden sm:flex items-center gap-2">
-                    <a href="tel:01101281570" class="bg-gold-gradient text-amber-950 font-black px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-md hover:scale-105 transition">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>01101281570</span>
-                    </a>
-                    <a href="tel:01101281670" class="bg-gold-gradient text-amber-950 font-black px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-md hover:scale-105 transition">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>01101281670</span>
-                    </a>
-                </div>
+            <div class="bg-black/30 px-4 py-2 rounded-xl border border-amber-500/30 flex items-center gap-2 text-xs text-amber-100 font-medium">
+                <span>📍 ميدان الزلابية بجوار ستوديو شمس</span>
             </div>
         </div>
-
-        <!-- Navigation Tabs -->
-        <nav class="border-t border-amber-500/20 bg-black/40">
-            <div class="max-w-6xl mx-auto px-4 flex justify-center sm:justify-start gap-1 sm:gap-4 overflow-x-auto text-xs sm:text-sm font-bold py-2">
-                <a href="#menu-images" class="px-3 py-1.5 rounded-lg text-amber-200 hover:text-white hover:bg-amber-500/20 transition flex items-center gap-1.5 whitespace-nowrap">
-                    <i class="fa-solid fa-image text-amber-400"></i>
-                    <span>صور المنيو High-Res</span>
-                </a>
-                <a href="#digital-menu" class="px-3 py-1.5 rounded-lg text-amber-200 hover:text-white hover:bg-amber-500/20 transition flex items-center gap-1.5 whitespace-nowrap">
-                    <i class="fa-solid fa-list-check text-amber-400"></i>
-                    <span>الأصناف والأسعار</span>
-                </a>
-                <a href="#royal-offers" class="px-3 py-1.5 rounded-lg text-amber-200 hover:text-white hover:bg-amber-500/20 transition flex items-center gap-1.5 whitespace-nowrap">
-                    <i class="fa-solid fa-gift text-amber-400"></i>
-                    <span>عروض الملوك Special</span>
-                </a>
-                <a href="#contact-info" class="px-3 py-1.5 rounded-lg text-amber-200 hover:text-white hover:bg-amber-500/20 transition flex items-center gap-1.5 whitespace-nowrap">
-                    <i class="fa-solid fa-headset text-amber-400"></i>
-                    <span>التوصيل والمعلومات</span>
-                </a>
-            </div>
-        </nav>
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full flex flex-col gap-10">
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full flex flex-col gap-8">
+        <!-- Title Banner -->
+        <div class="text-center bg-white/80 backdrop-blur-md py-4 px-6 rounded-2xl shadow-sm border border-amber-200">
+            <h2 class="text-2xl font-black text-[#2C1810] mb-1">📜 قائمة المنيو الملكي</h2>
+            <p class="text-sm text-stone-600 font-medium">انقر على أي صورة لتكبيرها واستعراض الأصناف والأسعار بكل وضوح</p>
+        </div>
 
-        <!-- Hero Welcome Banner -->
-        <section class="card-glass p-6 sm:p-8 rounded-3xl gold-border gold-glow text-center relative overflow-hidden">
-            <div class="absolute -top-10 -left-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-            <span class="inline-block bg-amber-500/20 text-amber-300 border border-amber-500/40 px-4 py-1 rounded-full text-xs font-bold mb-3">
-                ✨ أهلاً بكم في قصر الملوك
-            </span>
-            <h2 class="text-3xl sm:text-4xl font-black text-gold-gradient mb-3">قائمة الطعام الملكية الشاملة</h2>
-            <p class="text-stone-300 text-sm sm:text-base max-w-2xl mx-auto font-medium leading-relaxed">
-                استمتع بأشهى الوجبات المحضرة بأعلى جودة وطعم ملكي لا يقاوم. تصفح صور المنيو عالية الدقة أو ابحث في الأصناف والأسعار مباشرة!
-            </p>
-
-            <div class="flex flex-wrap justify-center gap-3 mt-6">
-                <a href="tel:01101281570" class="bg-gold-gradient text-amber-950 px-6 py-3 rounded-2xl font-black text-sm sm:text-base shadow-lg hover:scale-105 transition flex items-center gap-2">
-                    <i class="fa-solid fa-phone-volume text-lg"></i>
-                    <span>اطلب الآن: 01101281570</span>
-                </a>
-                <a href="https://wa.me/201101281570?text=%D0%B3%D0%B0%D1%8F%D1%80%D1%8A%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20%D9%82%D8%B5%D8%B1%20%D8%A7%D9%84%D9%85%D9%84%D9%88%D9%83" target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-2xl font-black text-sm sm:text-base shadow-lg hover:scale-105 transition flex items-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>طلب عبر واتساب</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- SECTION 1: Menu Images Gallery (High-Res) -->
-        <section id="menu-images" class="flex flex-col gap-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-amber-500/30 pb-3">
-                <div>
-                    <h3 class="text-2xl font-black text-gold-gradient flex items-center gap-2">
-                        <i class="fa-solid fa-file-image text-amber-400"></i>
-                        <span>صور المنيو الرسمية عالية الدقة</span>
-                    </h3>
-                    <p class="text-xs text-stone-400 font-medium">انقر على أي صورة لفتح المستعرض التفاعلي بالتكبير الكامل 🔍</p>
-                </div>
-                <span class="text-xs bg-amber-500/20 text-amber-300 font-bold px-3 py-1 rounded-full border border-amber-500/30">
-                    صفحتين كاملتين 📄
-                </span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                <!-- Menu Page 1 Card -->
-                <div class="card-glass rounded-2xl p-4 sm:p-5 flex flex-col justify-between gold-border gold-glow-hover transition duration-300 group">
-                    <div>
-                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-amber-500/20">
-                            <span class="text-xs bg-amber-500 text-amber-950 font-black px-3 py-1 rounded-full">الصفحة 1</span>
-                            <span class="text-xs text-amber-300 font-bold">الكريبات • السماش • الفرايد • الريزو</span>
-                        </div>
-                        <h4 class="text-lg font-bold text-amber-100 mb-3 group-hover:text-amber-400 transition">
-                            ركن الكريبات، السماش برجر، الفرايد تشكين والبطاطس
-                        </h4>
-                    </div>
-
-                    <div class="relative overflow-hidden rounded-xl border-2 border-amber-500/40 cursor-pointer bg-black/50" onclick="openLightbox(0)">
-                        <img src="menu1.png" alt="منيو قصر الملوك - الصفحة الأولى" class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500">
-                        <div class="absolute inset-0 bg-amber-950/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center backdrop-blur-xs">
-                            <span class="bg-gold-gradient text-amber-950 font-black px-5 py-2.5 rounded-xl text-sm shadow-2xl flex items-center gap-2 transform group-hover:scale-110 transition">
-                                <i class="fa-solid fa-magnifying-glass-plus text-base"></i>
-                                <span>انقر لتكبير الصفحة الأولى</span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 flex items-center justify-between text-xs text-stone-400 font-medium">
-                        <span><i class="fa-solid fa-hand-pointer text-amber-400"></i> اضغط لتكبير الصور</span>
-                        <span class="text-amber-300 font-semibold">HD Image 1</span>
-                    </div>
-                </div>
-
-                <!-- Menu Page 2 Card -->
-                <div class="card-glass rounded-2xl p-4 sm:p-5 flex flex-col justify-between gold-border gold-glow-hover transition duration-300 group">
-                    <div>
-                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-amber-500/20">
-                            <span class="text-xs bg-amber-500 text-amber-950 font-black px-3 py-1 rounded-full">الصفحة 2</span>
-                            <span class="text-xs text-amber-300 font-bold">البيتزا • الحواوشي • الباستا • الوجبات</span>
-                        </div>
-                        <h4 class="text-lg font-bold text-amber-100 mb-3 group-hover:text-amber-400 transition">
-                            الركن الإيطالي، بيتزا، حواوشي، باستا وعروض الملوك
-                        </h4>
-                    </div>
-
-                    <div class="relative overflow-hidden rounded-xl border-2 border-amber-500/40 cursor-pointer bg-black/50" onclick="openLightbox(1)">
-                        <img src="menu2.png" alt="منيو قصر الملوك - الصفحة الثانية" class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500">
-                        <div class="absolute inset-0 bg-amber-950/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center backdrop-blur-xs">
-                            <span class="bg-gold-gradient text-amber-950 font-black px-5 py-2.5 rounded-xl text-sm shadow-2xl flex items-center gap-2 transform group-hover:scale-110 transition">
-                                <i class="fa-solid fa-magnifying-glass-plus text-base"></i>
-                                <span>انقر لتكبير الصفحة الثانية</span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 flex items-center justify-between text-xs text-stone-400 font-medium">
-                        <span><i class="fa-solid fa-hand-pointer text-amber-400"></i> اضغط لتكبير الصور</span>
-                        <span class="text-amber-300 font-semibold">HD Image 2</span>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SECTION 2: Interactive Digital Searchable Menu -->
-        <section id="digital-menu" class="flex flex-col gap-6 pt-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-amber-500/30 pb-4">
-                <div>
-                    <h3 class="text-2xl font-black text-gold-gradient flex items-center gap-2">
-                        <i class="fa-solid fa-utensils text-amber-400"></i>
-                        <span>قائمة الأصناف بالأسعار والتفاصيل</span>
-                    </h3>
-                    <p class="text-xs text-stone-400 font-medium">تصفح وجباتك المفضلة أو استخدم البحث السريع للتصفح الفوري</p>
-                </div>
-
-                <!-- Search Input -->
-                <div class="relative w-full sm:w-72">
-                    <input type="text" id="searchInput" oninput="filterMenu()" aria-label="ابحث في أصناف المنيو" placeholder="ابحث عن بيتزا، كريب، سماش..." class="w-full bg-black/60 border border-amber-500/40 text-amber-100 placeholder-amber-400/50 rounded-xl py-2.5 px-10 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400">
-                    <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-amber-400 text-sm"></i>
-                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute left-3 top-3 text-amber-400 hover:text-amber-200 text-xs">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Category Filter Chips -->
-            <div class="flex flex-wrap gap-2 text-xs sm:text-sm font-bold" id="categoryChips">
-                <button onclick="filterCategory('all')" class="category-btn active bg-amber-500 text-amber-950 px-4 py-2 rounded-xl transition shadow">الكل ✨</button>
-                <button onclick="filterCategory('pizza')" class="category-btn bg-amber-950/60 text-amber-200 border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/20 transition">🍕 البيتزا والحواوشي</button>
-                <button onclick="filterCategory('crepe')" class="category-btn bg-amber-950/60 text-amber-200 border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/20 transition">🥞 الكريبات</button>
-                <button onclick="filterCategory('smash')" class="category-btn bg-amber-950/60 text-amber-200 border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/20 transition">🍔 السماش والفرنساوي</button>
-                <button onclick="filterCategory('chicken')" class="category-btn bg-amber-950/60 text-amber-200 border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/20 transition">🍗 فرايد تشكين ووجبات</button>
-                <button onclick="filterCategory('pasta')" class="category-btn bg-amber-950/60 text-amber-200 border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/20 transition">🍝 باستا وريزو</button>
-                <button onclick="filterCategory('offers')" class="category-btn bg-amber-950/60 text-amber-200 border border-amber-500/30 px-4 py-2 rounded-xl hover:bg-amber-500/20 transition">🎁 عروض الملوك</button>
-            </div>
-
-            <!-- Interactive Cards Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="menuItemsGrid">
-
-                <!-- Pizza Items -->
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="pizza" data-title="بيتزا مارجريتا">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">بيتزا مارجريتا</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">إيطالي</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">صلصة بيتزا قصر الملوك الخاصة مع الجبن الموتزاريلا الفاخر</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-xs text-amber-300 font-bold">
-                            <span>سمول: 110ج</span> • <span>ميديم: 130ج</span> • <span>لارج: 160ج</span>
-                        </div>
-                        <button onclick="orderItem('بيتزا مارجريتا')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="pizza" data-title="بيتزا ميكس جبن">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">بيتزا ميكس جبن 🔥</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">الأكثر طلباً</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">مزيج ملكي من الجبن الموتزاريلا، الرومي، والكيري الغنية</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-xs text-amber-300 font-bold">
-                            <span>سمول: 125ج</span> • <span>ميديم: 160ج</span> • <span>لارج: 210ج</span>
-                        </div>
-                        <button onclick="orderItem('بيتزا ميكس جبن')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="pizza" data-title="بيتزا فراخ رانش">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">بيتزا فراخ رانش / باربيكيو</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">مميز</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">قطع دجاج مشوي مع صوص الرانش الغني أو الباربيكيو المدخن</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-xs text-amber-300 font-bold">
-                            <span>سمول: 140ج</span> • <span>ميديم: 180ج</span> • <span>لارج: 225ج</span>
-                        </div>
-                        <button onclick="orderItem('بيتزا فراخ رانش')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="pizza" data-title="حواوشي الملوك">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">حواوشي الملوك 👑</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">ركن الحواوشي</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">خلطة قصر الملوك الخاصة باللحم المفروم والجبن والبهارات الملكية</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-base text-amber-300 font-black">200 جنيه</div>
-                        <button onclick="orderItem('حواوشي الملوك')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <!-- Crepe Items -->
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="crepe" data-title="كريب كريسبي استربس">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">كريب كريسبي / استربس</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">كريبات</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">قطع فراخ كريسبي مقرمشة مع البطاطس والجبن والصوص</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-base text-amber-300 font-black">130 جنيه</div>
-                        <button onclick="orderItem('كريب كريسبي')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="crepe" data-title="كريب الملوك">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">كريب الملوك 👑</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">توب كريب</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">كريسبي + شاورما فراخ + تركي مدخن + بطاطس + كونو جبن</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-base text-amber-300 font-black">160 جنيه</div>
-                        <button onclick="orderItem('كريب الملوك')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="crepe" data-title="فاير ميكس كريب">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">فاير ميكس كريب</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">ميكس</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">بانيه + كريسبي مقرمش + شاورما فراخ غنية</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-base text-amber-300 font-black">130 جنيه</div>
-                        <button onclick="orderItem('فاير ميكس كريب')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <!-- Smash & Burger Items -->
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="smash" data-title="سماش كلاسيك">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">كلاسيك سماش (بيف / تشيكن)</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">سماش</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">شريحة لحم بيف طازجة ومحمرة على الصاج مع صوص السماش الجبن</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-xs text-amber-300 font-bold">
-                            <span>سنجل: 99ج</span> • <span>دابل: 149ج</span> • <span>تريبل: 210ج</span>
-                        </div>
-                        <button onclick="orderItem('سماش كلاسيك')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="smash" data-title="قنبلة القصر">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">ساندوتش قنبلة القصر 💣</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">سوبر سماش</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">بيف/تشيكن + لحم/تركي مدخن + موتزاريلا + بطاطس + مشروم</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-base text-amber-300 font-black">149 جنيه</div>
-                        <button onclick="orderItem('قنبلة القصر')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <!-- Fried Chicken Items -->
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="chicken" data-title="وجبة فرايد تشكين">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">وجبات الفرايد تشكين الكريسبي</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">وجبات</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">قطع دجاج كريسبي مقرمشة تقدم مع بطاطس فرايز وصوصات</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-xs text-amber-300 font-bold">
-                            <span>3قطع: 120ج</span> • <span>5قطع: 200ج</span> • <span>7قطع: 300ج</span>
-                        </div>
-                        <button onclick="orderItem('وجبة فرايد تشكين')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <!-- Pasta & Rizo Items -->
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="pasta" data-title="مكرونة فراخ ومشروم">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">مكرونة فراخ + مشروم</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">الباستا</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">باستا بالفرن مع قطع الدجاج والمشروم الطازج والجبن</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-base text-amber-300 font-black">125 جنيه</div>
-                        <button onclick="orderItem('مكرونة فراخ ومشروم')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-                <div class="menu-item card-glass p-4 rounded-2xl gold-border hover:border-amber-400 transition duration-300 flex flex-col justify-between" data-category="pasta" data-title="طبق ريزو بلس">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-amber-100 text-base">أطباق ريزو بلس 🍚</h4>
-                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-lg border border-amber-500/30">الريزو</span>
-                        </div>
-                        <p class="text-xs text-stone-400 mb-3">رز بسمتي الريزو المبهر + (شاورما فراخ / كريسبي / برجر) + صوصات</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-amber-500/20">
-                        <div class="text-base text-amber-300 font-black">85 جنيه</div>
-                        <button onclick="orderItem('ريزو بلس')" class="text-xs bg-gold-gradient text-amber-950 font-black px-3 py-1.5 rounded-lg hover:scale-105 transition">اطلب</button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SECTION 3: Special Offers -->
-        <section id="royal-offers" class="flex flex-col gap-6 pt-6">
-            <div class="border-b border-amber-500/30 pb-3">
-                <h3 class="text-2xl font-black text-gold-gradient flex items-center gap-2">
-                    <i class="fa-solid fa-tags text-amber-400"></i>
-                    <span>عروض الملوك الخاصة (Super Deals)</span>
+        <!-- Menu Image 1 (Italian & Pizza - Now First) -->
+        <div class="menu-card p-5 border border-amber-200 text-center relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-amber-100">
+                <h3 class="text-lg font-black text-[#5C3A21] flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-amber-600 inline-block"></span>
+                    الصفحة الأولى: الركن الإيطالي، الحواوشي، الباستا، الوجبات والعروض
                 </h3>
-                <p class="text-xs text-stone-400 font-medium">أفضل العروض والكومبو بأسعار ملكية مخفضة ⚡</p>
+                <span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full">صفحة 1</span>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                <!-- Offer 200 -->
-                <div class="card-glass p-6 rounded-3xl gold-border relative overflow-hidden flex flex-col justify-between hover:scale-105 transition duration-300 border-2 border-amber-500/50">
-                    <div class="absolute -top-3 -right-3 bg-amber-500 text-amber-950 font-black text-xs px-4 py-2 rounded-br-2xl transform rotate-3">
-                        عرض توفير ⚡
-                    </div>
-                    <div>
-                        <div class="text-center mb-4">
-                            <span class="text-3xl font-black text-gold-gradient">200 جنيه</span>
-                            <h4 class="text-lg font-extrabold text-amber-100 mt-1">عرض الكومبو السريع</h4>
-                        </div>
-                        <ul class="text-xs text-stone-300 space-y-2 mb-6">
-                            <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check text-amber-400"></i>
-                                <span>1 كريب شاورما فراخ غني</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check text-amber-400"></i>
-                                <span>1 برجر بيف سنجل طازج</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <button onclick="orderItem('عرض 200 جنيه')" class="w-full bg-gold-gradient text-amber-950 font-black py-2.5 rounded-xl text-xs hover:shadow-lg transition">
-                        اطلب العرض الآن
-                    </button>
-                </div>
-
-                <!-- Offer 300 -->
-                <div class="card-glass p-6 rounded-3xl gold-border relative overflow-hidden flex flex-col justify-between hover:scale-105 transition duration-300 border-2 border-amber-400 gold-glow">
-                    <div class="absolute -top-3 -right-3 bg-gold-gradient text-amber-950 font-black text-xs px-4 py-2 rounded-br-2xl transform rotate-3">
-                        العرض الأكثر طلباً 🔥
-                    </div>
-                    <div>
-                        <div class="text-center mb-4">
-                            <span class="text-3xl font-black text-gold-gradient">300 جنيه</span>
-                            <h4 class="text-lg font-extrabold text-amber-100 mt-1">عرض وجبة العائلة الثلاثي</h4>
-                        </div>
-                        <ul class="text-xs text-stone-300 space-y-2 mb-6">
-                            <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check text-amber-400"></i>
-                                <span>1 حواوشي لحمة مفرومة</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check text-amber-400"></i>
-                                <span>1 بطاطس كريسبي + صوص</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check text-amber-400"></i>
-                                <span>1 مكرونة فراخ بالفرن</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <button onclick="orderItem('عرض 300 جنيه')" class="w-full bg-gold-gradient text-amber-950 font-black py-2.5 rounded-xl text-xs hover:shadow-lg transition">
-                        اطلب العرض الآن
-                    </button>
-                </div>
-
-                <!-- Offer 400 -->
-                <div class="card-glass p-6 rounded-3xl gold-border relative overflow-hidden flex flex-col justify-between hover:scale-105 transition duration-300 border-2 border-amber-500/50">
-                    <div class="absolute -top-3 -right-3 bg-amber-500 text-amber-950 font-black text-xs px-4 py-2 rounded-br-2xl transform rotate-3">
-                        عرض البيتزا الملكي 🍕
-                    </div>
-                    <div>
-                        <div class="text-center mb-4">
-                            <span class="text-3xl font-black text-gold-gradient">400 جنيه</span>
-                            <h4 class="text-lg font-extrabold text-amber-100 mt-1">عرض 2 بيتزا عائلي</h4>
-                        </div>
-                        <ul class="text-xs text-stone-300 space-y-2 mb-6">
-                            <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check text-amber-400"></i>
-                                <span>1 بيتزا فراخ رانش عائلي (لارج)</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check text-amber-400"></i>
-                                <span>1 بيتزا ميكس جبن عائلي (لارج)</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <button onclick="orderItem('عرض 400 جنيه')" class="w-full bg-gold-gradient text-amber-950 font-black py-2.5 rounded-xl text-xs hover:shadow-lg transition">
-                        اطلب العرض الآن
-                    </button>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SECTION 4: Contact & Location -->
-        <section id="contact-info" class="card-glass p-6 sm:p-8 rounded-3xl gold-border gold-glow flex flex-col md:flex-row gap-8 items-center justify-between">
-            <div class="flex-1 text-center md:text-right">
-                <span class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full font-bold border border-amber-500/30">
-                    🛵 خدمة الدليفري والتوصيل
-                </span>
-                <h3 class="text-2xl sm:text-3xl font-black text-gold-gradient mt-3 mb-2">تواصل معنا وللطلبات السريعة</h3>
-                <p class="text-xs sm:text-sm text-stone-300 font-medium mb-4">
-                    📍 العنوان: ميدان الزلابية بجوار ستوديو شمس
-                </p>
-
-                <div class="flex flex-wrap justify-center md:justify-start gap-3">
-                    <button onclick="copyPhone('01101281570')" class="bg-black/40 border border-amber-500/40 text-amber-200 px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center gap-2">
-                        <i class="fa-regular fa-copy text-amber-400"></i>
-                        <span>نسخ الرقم 1: 01101281570</span>
-                    </button>
-                    <button onclick="copyPhone('01101281670')" class="bg-black/40 border border-amber-500/40 text-amber-200 px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-amber-500/20 transition flex items-center gap-2">
-                        <i class="fa-regular fa-copy text-amber-400"></i>
-                        <span>نسخ الرقم 2: 01101281670</span>
-                    </button>
+            <div class="relative group cursor-pointer overflow-hidden rounded-xl border-2 border-amber-200/60" onclick="openModal('menu1.jpg')">
+                <img src="menu1.jpg"
+                     alt="منيو قصر الملوك - الصفحة الأولى"
+                     class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                     onerror="this.onerror=null; this.src='menu1.png';">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="bg-black/70 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-lg flex items-center gap-2">
+                        🔍 اضغط للتكبير واستعراض التفاصيل
+                    </span>
                 </div>
             </div>
+        </div>
 
-            <div class="flex flex-col gap-3 w-full sm:w-auto">
-                <a href="tel:01101281570" class="bg-gold-gradient text-amber-950 px-8 py-3.5 rounded-2xl font-black text-base shadow-xl hover:scale-105 transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-phone text-lg"></i>
-                    <span>اتصل بنا مباشرة</span>
-                </a>
-                <a href="https://wa.me/201101281570" target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-8 py-3.5 rounded-2xl font-black text-base shadow-xl hover:scale-105 transition flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i>
-                    <span>محادثة واتساب</span>
-                </a>
+        <!-- Menu Image 2 (Crepes & Fried - Now Second) -->
+        <div class="menu-card p-5 border border-amber-200 text-center relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-amber-100">
+                <h3 class="text-lg font-black text-[#5C3A21] flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-amber-600 inline-block"></span>
+                    الصفحة الثانية: الكريبات، فرايد تشكين، السماش، الريزو والبطاطس
+                </h3>
+                <span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full">صفحة 2</span>
             </div>
-        </section>
-
+            <div class="relative group cursor-pointer overflow-hidden rounded-xl border-2 border-amber-200/60" onclick="openModal('menu2.jpg')">
+                <img src="menu2.jpg"
+                     alt="منيو قصر الملوك - الصفحة الثانية"
+                     class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                     onerror="this.onerror=null; this.src='menu2.png';">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span class="bg-black/70 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-lg flex items-center gap-2">
+                        🔍 اضغط للتكبير واستعراض التفاصيل
+                    </span>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- Interactive Lightbox Modal with Zoom & Pan -->
-    <div id="lightboxModal" class="fixed inset-0 bg-black/95 z-50 hidden flex flex-col backdrop-blur-md">
-
-        <!-- Lightbox Toolbar Header -->
-        <div class="bg-black/80 border-b border-amber-500/30 px-4 py-3 flex items-center justify-between z-10 text-white">
-            <div class="flex items-center gap-3">
-                <span id="modalPageTitle" class="text-xs sm:text-sm font-bold text-amber-300">منيو قصر الملوك</span>
-                <span id="modalPageCounter" class="bg-amber-500/20 text-amber-200 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-amber-500/30">1 / 2</span>
-            </div>
-
-            <!-- Zoom Controls & Actions -->
-            <div class="flex items-center gap-2">
-                <button onclick="zoomIn()" class="bg-white/10 hover:bg-amber-500/30 text-amber-300 w-9 h-9 rounded-xl text-sm flex items-center justify-center transition" title="تكبير">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </button>
-                <button onclick="zoomOut()" class="bg-white/10 hover:bg-amber-500/30 text-amber-300 w-9 h-9 rounded-xl text-sm flex items-center justify-center transition" title="تصغير">
-                    <i class="fa-solid fa-magnifying-glass-minus"></i>
-                </button>
-                <button onclick="resetZoom()" class="bg-white/10 hover:bg-amber-500/30 text-amber-300 w-9 h-9 rounded-xl text-xs flex items-center justify-center transition" title="إعادة الضبط">
-                    <i class="fa-solid fa-rotate-left"></i>
-                </button>
-                <button onclick="closeLightbox()" class="bg-red-600 hover:bg-red-500 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition ml-2 shadow-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                    <span>إغلاق</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Lightbox Body / Image Viewport -->
-        <div class="flex-grow relative flex items-center justify-center overflow-hidden p-2 sm:p-4 img-zoom-viewport" id="viewport">
-
-            <!-- Previous Button -->
-            <button onclick="prevPage()" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-amber-500 text-white hover:text-amber-950 w-12 h-12 rounded-full flex items-center justify-center text-lg transition shadow-2xl border border-amber-500/40">
-                <i class="fa-solid fa-chevron-right"></i>
+    <!-- Modal for Fullscreen Image View -->
+    <div id="imageModal" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center p-3 sm:p-6 backdrop-blur-sm" onclick="closeModal()">
+        <div class="relative max-w-6xl max-h-full w-full flex flex-col items-center" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute -top-12 right-0 text-white font-black bg-red-600 hover:bg-red-700 px-5 py-2 rounded-xl shadow-lg text-sm transition flex items-center gap-1">
+                ✕ إغلاق
             </button>
-
-            <!-- Image Target -->
-            <img id="lightboxImg" src="" alt="توقيع المنيو" class="max-h-[85vh] max-w-full object-contain rounded-xl shadow-2xl transition-transform duration-200 select-none">
-
-            <!-- Next Button -->
-            <button onclick="nextPage()" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-amber-500 text-white hover:text-amber-950 w-12 h-12 rounded-full flex items-center justify-center text-lg transition shadow-2xl border border-amber-500/40">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-        </div>
-
-        <!-- Lightbox Footer -->
-        <div class="bg-black/80 border-t border-amber-500/30 py-2.5 px-4 text-center text-xs text-stone-400 flex justify-between items-center">
-            <span>استخدم عجلة الماوس للتكبير والتصغير أو اسحب للتحريك 💡</span>
-            <div class="flex gap-2">
-                <button onclick="switchPage(0)" class="px-3 py-1 rounded-lg text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/40 transition">الصفحة 1</button>
-                <button onclick="switchPage(1)" class="px-3 py-1 rounded-lg text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/40 transition">الصفحة 2</button>
-            </div>
+            <img id="modalImg" class="max-h-[85vh] max-w-full rounded-2xl shadow-2xl object-contain border-2 border-amber-500/50 bg-black" alt="تكبير المنيو">
         </div>
     </div>
 
-    <!-- Mobile Bottom Floating Action Bar -->
-    <div class="fixed bottom-0 inset-x-0 bg-royal-dark/95 backdrop-blur-md border-t border-amber-500/40 p-3 z-30 sm:hidden flex items-center justify-around gap-2">
-        <a href="tel:01101281570" class="flex-1 bg-gold-gradient call-pulse text-amber-950 font-black py-2.5 px-3 rounded-xl text-xs text-center flex items-center justify-center gap-2 shadow-lg">
-            <i class="fa-solid fa-phone"></i>
-            <span>اتصل الآن</span>
-        </a>
-        <a href="https://wa.me/201101281570" target="_blank" class="flex-1 bg-green-600 text-white font-black py-2.5 px-3 rounded-xl text-xs text-center flex items-center justify-center gap-2 shadow-lg">
-            <i class="fa-brands fa-whatsapp text-base"></i>
-            <span>واتساب</span>
-        </a>
-    </div>
-
-    <!-- Toast Notification Container -->
-    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden bg-gold-gradient text-amber-950 font-black px-6 py-3 rounded-2xl shadow-2xl border border-amber-200 text-sm flex items-center gap-2 transform transition-all duration-300">
-        <i class="fa-solid fa-circle-check text-base"></i>
-        <span id="toastMsg">تم الإجراء بنجاح!</span>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-royal-dark border-t border-amber-500/30 text-stone-400 py-6 text-center text-xs mt-12">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-2">
-                <span class="text-amber-400 font-bold">مطعم قصر الملوك</span>
-                <span>© 2025 جميع الحقوق محفوظة</span>
+    <!-- Footer / Sticky Call Bar -->
+    <footer class="royal-header text-white mt-12 shadow-2xl sticky bottom-0 z-40 border-t-2 border-amber-400">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2 text-center sm:text-right">
+                <span class="text-xl">📞</span>
+                <div>
+                    <p class="text-sm font-black text-amber-200">للطلب والتوصيل السريع:</p>
+                    <p class="text-xs text-stone-300">اتصل الآن واستمتع بطعم قصر الملوك</p>
+                </div>
             </div>
-            <p class="text-stone-500">طعم ملكي بمذاق مختلف 👑</p>
+            <div class="flex flex-wrap justify-center gap-3 w-full sm:w-auto">
+                <a href="tel:01101281570" class="royal-gold-bg call-pulse text-black px-6 py-3 rounded-2xl font-black text-base shadow-xl flex items-center gap-2 hover:bg-amber-400 transition transform hover:-translate-y-0.5">
+                    <span>📱</span> 01101281570
+                </a>
+                <a href="tel:01101281670" class="royal-gold-bg call-pulse text-black px-6 py-3 rounded-2xl font-black text-base shadow-xl flex items-center gap-2 hover:bg-amber-400 transition transform hover:-translate-y-0.5">
+                    <span>📱</span> 01101281670
+                </a>
+            </div>
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript for Modal -->
     <script>
-        // Images state
-        const menuImages = ['menu1.png', 'menu2.png'];
-        const pageTitles = [
-            'الصفحة 1: الكريبات، السماش برجر، الفرايد تشكين والبطاطس',
-            'الصفحة 2: الركن الإيطالي، البيتزا، الحواوشي والوجبات'
-        ];
-        let currentPageIndex = 0;
-        let scale = 1;
-        let isDragging = false;
-        let startX = 0, startY = 0;
-        let translateX = 0, translateY = 0;
-
-        const lightboxModal = document.getElementById('lightboxModal');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const modalPageTitle = document.getElementById('modalPageTitle');
-        const modalPageCounter = document.getElementById('modalPageCounter');
-        const viewport = document.getElementById('viewport');
-
-        // Lightbox opening
-        function openLightbox(index) {
-            currentPageIndex = index;
-            updateModalImage();
-            lightboxModal.classList.remove('hidden');
+        function openModal(imgSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = imgSrc;
+            modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            resetZoom();
         }
 
-        function closeLightbox() {
-            lightboxModal.classList.add('hidden');
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
-            resetZoom();
         }
 
-        function switchPage(index) {
-            currentPageIndex = index;
-            updateModalImage();
-            resetZoom();
-        }
-
-        function nextPage() {
-            currentPageIndex = (currentPageIndex + 1) % menuImages.length;
-            updateModalImage();
-            resetZoom();
-        }
-
-        function prevPage() {
-            currentPageIndex = (currentPageIndex - 1 + menuImages.length) % menuImages.length;
-            updateModalImage();
-            resetZoom();
-        }
-
-        function updateModalImage() {
-            lightboxImg.src = menuImages[currentPageIndex];
-            modalPageTitle.textContent = pageTitles[currentPageIndex];
-            modalPageCounter.textContent = `${currentPageIndex + 1} / ${menuImages.length}`;
-        }
-
-        // Zoom & Drag Logic
-        function zoomIn() {
-            scale = Math.min(scale + 0.3, 3);
-            applyTransform();
-        }
-
-        function zoomOut() {
-            scale = Math.max(scale - 0.3, 0.8);
-            if (scale <= 1) { translateX = 0; translateY = 0; }
-            applyTransform();
-        }
-
-        function resetZoom() {
-            scale = 1;
-            translateX = 0;
-            translateY = 0;
-            applyTransform();
-        }
-
-        function applyTransform() {
-            lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-        }
-
-        // Mouse Wheel Zoom
-        viewport.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            if (e.deltaY < 0) {
-                zoomIn();
-            } else {
-                zoomOut();
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
             }
         });
-
-        // Mouse Pan Dragging
-        viewport.addEventListener('mousedown', (e) => {
-            if (scale > 1) {
-                isDragging = true;
-                startX = e.clientX - translateX;
-                startY = e.clientY - translateY;
-            }
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (isDragging && scale > 1) {
-                translateX = e.clientX - startX;
-                translateY = e.clientY - startY;
-                applyTransform();
-            }
-        });
-
-        window.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (!lightboxModal.classList.contains('hidden')) {
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowRight') prevPage();
-                if (e.key === 'ArrowLeft') nextPage();
-                if (e.key === '+') zoomIn();
-                if (e.key === '-') zoomOut();
-            }
-        });
-
-        // Category Filter Logic
-        function filterCategory(cat) {
-            const items = document.querySelectorAll('.menu-item');
-            const btns = document.querySelectorAll('.category-btn');
-
-            btns.forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-amber-950');
-                btn.classList.add('bg-amber-950/60', 'text-amber-200');
-            });
-            event.target.classList.remove('bg-amber-950/60', 'text-amber-200');
-            event.target.classList.add('bg-amber-500', 'text-amber-950');
-
-            items.forEach(item => {
-                if (cat === 'all' || item.dataset.category === cat) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        // Live Search Logic
-        function filterMenu() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const items = document.querySelectorAll('.menu-item');
-            const clearBtn = document.getElementById('clearSearchBtn');
-
-            if (query.length > 0) {
-                clearBtn.classList.remove('hidden');
-            } else {
-                clearBtn.classList.add('hidden');
-            }
-
-            items.forEach(item => {
-                const title = item.dataset.title.toLowerCase();
-                const text = item.textContent.toLowerCase();
-                if (title.includes(query) || text.includes(query)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            filterMenu();
-        }
-
-        // Order Action Helper
-        function orderItem(itemName) {
-            const phone = "01101281570";
-            const text = encodeURIComponent(`مرحباً قصر الملوك، أريد طلب: ${itemName}`);
-            showToast(`جاري تحويلك لطلب (${itemName})...`);
-            setTimeout(() => {
-                window.open(`https://wa.me/201101281570?text=${text}`, '_blank');
-            }, 800);
-        }
-
-        // Copy Phone Helper
-        function copyPhone(number) {
-            navigator.clipboard.writeText(number);
-            showToast(`تم نسخ رقم الهاتف (${number}) بنجاح!`);
-        }
-
-        // Toast Helper
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toastMsg');
-            toastMsg.textContent = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
-        }
     </script>
 </body>
 </html>
